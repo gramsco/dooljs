@@ -17,10 +17,11 @@ function checkDays(dates) {
     if (!dict.includes(dates)) {
       throw new Error(` |=> ${dates} <=| is not in the list of days`);
     }
+  } else {
+    dates.forEach((d) => {
+      if (!dict.includes(d)) throw new Error(`${d} is not in the list of days`);
+    });
   }
-  dates.forEach((d) => {
-    if (!dict.includes(d)) throw new Error(`${d} is not in the list of days`);
-  });
 }
 
 /**
