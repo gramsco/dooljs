@@ -34,6 +34,7 @@ function checkDays(dates) {
  */
 
 function generate(first, last, every = "day") {
+  if (!every) return [];
   const firstDate = dayjs(first);
   const lastDate = dayjs(last);
 
