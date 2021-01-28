@@ -1,2 +1,4 @@
 tests.js
 node_modules
+main.test.js
+.eslintrc.js
