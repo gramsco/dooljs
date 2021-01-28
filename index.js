@@ -12,6 +12,12 @@ const dict = [
 ];
 
 function checkDays(dates) {
+  if (typeof dates === "string") {
+    console.log(dates);
+    if (!dict.includes(dates)) {
+      throw new Error(` |=> ${dates} <=| is not in the list of days`);
+    }
+  }
   dates.forEach((d) => {
     if (!dict.includes(d)) throw new Error(`${d} is not in the list of days`);
   });
@@ -39,10 +45,10 @@ function generate(first, last, every = "day") {
   if (isArray) {
     if (every.length > 7) {
       throw new Error("There is only 7 days in a week, not " + every.length);
-    } else {
-      checkDays(every);
     }
   }
+
+  checkDays(every);
 
   let cursor = dayjs(first);
 
