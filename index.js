@@ -4,6 +4,7 @@ const dict = [
   "sunday",
   "monday",
   "tuesday",
+  "wednesday",
   "thursday",
   "friday",
   "saturday",
