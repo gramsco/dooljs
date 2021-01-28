@@ -66,9 +66,11 @@ function generate(first, last, every = "day") {
         dates.push(new Date(cursor));
       }
     }
-    if (!isArray) cursor = cursor.add(7, "day");
+    if (!isArray && every !== "day") cursor = cursor.add(7, "day");
     else cursor = cursor.add(1, "day");
   }
 
   return dates;
 }
+
+module.exports = generate;
