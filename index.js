@@ -12,6 +12,7 @@ const dict = [
 ];
 
 function checkDays(dates) {
+  if (dates === "day") return;
   if (typeof dates === "string") {
     console.log(dates);
     if (!dict.includes(dates)) {
