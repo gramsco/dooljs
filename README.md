@@ -65,7 +65,7 @@ const weeknds = dool(day1, day2, ["saturday", "sunday"]);
 
 console.log(weeknds.length);
 
-// => 2557 saturdays and sundays (today was a saturday, hence the odd number :D)
+// => 3231 saturdays and sundays (today was a saturday, hence the odd number :D)
 ```
 
 Beware, as:
