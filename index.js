@@ -1,6 +1,7 @@
 const dayjs = require("dayjs");
 const dict = require("./dict.js");
 
+// are the params correct
 function checkDays(dates) {
   if (dates === "day") return;
   if (typeof dates === "string") {
