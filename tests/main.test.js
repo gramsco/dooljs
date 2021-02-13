@@ -52,16 +52,8 @@ test("All returned elements are valid JS dates", () => {
 });
 
 test("Handle wrong inputs", () => {
-  expect(() => {
-    dool("toto", "tutu", "day");
-  }).toThrow();
-  expect(() => {
-    dool("toto", new Date(), "day");
-  }).toThrow();
-  expect(() => {
-    dool(new Date(), "toto", "day");
-  });
-  expect(() => {
-    dool(new Date(), new Date(), "toto");
-  }).toThrow();
+  expect(dool("toto", "tutu", "day")).toEqual([]);
+  expect(dool("toto", new Date(), "day")).toEqual([]);
+  expect(dool(new Date(), "toto", "day")).toEqual([]);
+  expect(dool(new Date(), new Date(), "toto")).toEqual([]);
 });
