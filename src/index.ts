@@ -2,7 +2,7 @@ import dayjs, { ConfigType, Dayjs } from "dayjs";
 
 const EVERY_DAY = "everyDay";
 const SINGLE_DAY = "oneDay";
-const LIST_DAYS = "listDAys";
+const LIST_DAYS = "listDays";
 
 const WRONG_QUERY = "Wrong query";
 
@@ -42,7 +42,16 @@ const dict: ListDays = [
 
 function checkAndParseArray(query: ListDays): CheckedQuery {
   if (query.includes("day")) return [true, EVERY_DAY, query];
-  else return [query.every((d) => dict.includes(d)), LIST_DAYS, query];
+  if (query.length === 1 && dict.includes(query[0])) {
+    return [true, SINGLE_DAY, query[0]];
+  }
+  const allGood = query.filter((q) => {
+    const ok = dict.includes(q);
+    if (!ok) console.error(`${q} is not a valid day`);
+    return ok;
+  });
+  const isValid = !!allGood.length;
+  return [isValid, isValid ? LIST_DAYS : WRONG_QUERY, allGood];
 }
 
 function checkAndParse(query: DoolQuery): CheckedQuery {
@@ -59,6 +68,7 @@ function checkAndParse(query: DoolQuery): CheckedQuery {
     case "string": {
       if (query === "day") return [true, EVERY_DAY, query];
       if (dict.includes(query)) return [true, SINGLE_DAY, query];
+      return [false, WRONG_QUERY, query];
     }
     default:
       return [false, WRONG_QUERY, query];
@@ -116,6 +126,7 @@ function dool(
           if (_query.includes(d)) break;
           c = c.add(1, "day");
         }
+        break;
       }
       case SINGLE_DAY: {
         while (true) {
@@ -123,6 +134,7 @@ function dool(
           if (_query === d) break;
           c = c.add(1, "day");
         }
+        break;
       }
     }
     return c;

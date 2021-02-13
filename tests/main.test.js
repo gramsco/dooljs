@@ -21,8 +21,9 @@ const randomQuery = () => {
   const query = [];
   const randBool = () => Boolean(Math.random() >= 0.5);
   values.forEach((v) => {
-    if (randBool) query.push(v);
+    if (randBool()) query.push(v);
   });
+  return query;
 };
 
 test("A year in days is 365 or 366 dool", () => {
@@ -49,6 +50,14 @@ test("All returned elements are valid JS dates", () => {
   const isValidJSDate = (d) => d instanceof Date;
   const allDatesChecked = days.map(isValidJSDate).every(Boolean);
   expect(allDatesChecked).toBe(true);
+});
+
+test("A list of only a single day works", () => {
+  const today = new Date();
+  const nextDate = randomDate();
+  const days = dool(today, nextDate, ["monday"]);
+  const days2 = dool(today, nextDate, "monday");
+  expect(days).toEqual(days2);
 });
 
 test("Handle wrong inputs", () => {
