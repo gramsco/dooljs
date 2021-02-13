@@ -16,11 +16,12 @@
   },
   "keywords": [
     "dates",
-    "calendar"
+    "calendar",
+    "days"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/gramsco/days-of-our-lives"
+    "url": "https://github.com/gramsco/dooljs"
   },
   "author": "gramsco",
   "license": "ISC",
