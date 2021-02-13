@@ -1,29 +1,51 @@
-const dayjs = require("dayjs");
-const dict = require("./dict.js");
+import dayjs, { ConfigType } from "dayjs";
+
+type EnglishDay =
+  | "sunday"
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday"
+  | "sunday";
+
+type ListDays = EnglishDay[];
+type DoolQuery = "day" | EnglishDay | ListDays;
+
+const dict: ListDays = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+];
 
 // are the params correct
-function checkDays(dates) {
-  if (dates === "day") return;
-  if (typeof dates === "string") {
-    if (!dict.includes(dates)) {
-      throw new Error(` |=> ${dates} <=| is not in the list of days`);
+function checkDays(query: DoolQuery) {
+  if (query === "day") return;
+  if (typeof query === "string") {
+    if (!dict.includes(query)) {
+      throw new Error(` |=> ${query} <=| is not in the list of days`);
     }
   } else {
-    dates.forEach((d) => {
+    query.forEach((d) => {
       if (!dict.includes(d)) throw new Error(`${d} is not in the list of days`);
     });
   }
 }
 
 /**
- * @param {*} first A parsable (by dayJS) date
- * @param {*} last A parsable (by dayJS) date
- * @param {*} every The date : "day", ["monday", "tuesday"], etc.
  *
- * ex : let dates = generate("2021-01-31", "2022-01-31", ["monday", "friday"]);
+ * @param first The first day
+ * @param last The second day
+ * @param every The query, ie: "day", ["monday", "thursday"], "wednesday"
  */
 
-function generate(first, last, every = "day") {
+function dool(first: ConfigType, last: ConfigType, every: DoolQuery = "day") {
   if (!every) return [];
 
   const firstDate = dayjs(first);
@@ -65,11 +87,11 @@ function generate(first, last, every = "day") {
 
   while (cursor.isBefore(lastDate)) {
     if (every === "day") {
-      dates.push(new Date(cursor));
+      dates.push(cursor.toDate());
     } else {
       const today = dict[cursor.day()];
       if (every.includes(today)) {
-        dates.push(new Date(cursor));
+        dates.push(cursor.toDate());
       }
     }
     if (!isArray && every !== "day") cursor = cursor.add(7, "day");
@@ -79,4 +101,4 @@ function generate(first, last, every = "day") {
   return dates;
 }
 
-module.exports = generate;
+export default dool;
