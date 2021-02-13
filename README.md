@@ -1,6 +1,6 @@
 # Dool.js
 
-Dool.js is a package based on <a href="https://github.com/iamkun/dayjs">dayjs</a> that allows you do to generate the list of days between two dates.
+Dool.js is a package based on <a href="https://github.com/iamkun/dayjs">dayjs</a> that allows you to generate the list of days between two dates.
 
 ## Why?
 
@@ -65,7 +65,7 @@ const weeknds = dool(day1, day2, ["saturday", "sunday"]);
 
 console.log(weeknds.length);
 
-// => 2557 saturdays and sundays (today was a saturday, hence the odd number :D)
+// => 3231 saturdays and sundays (today was a saturday, hence the odd number :D)
 ```
 
 Beware, as:
