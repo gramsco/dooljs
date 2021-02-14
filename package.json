@@ -1,6 +1,6 @@
 {
   "name": "dooljs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A package that generates a list of days between two dates",
   "source": "src/index.ts",
   "main": "dist/index.js",

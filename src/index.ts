@@ -47,7 +47,7 @@ function checkAndParseArray(query: ListDays): CheckedQuery {
   }
   const allGood = query.filter((q) => {
     const ok = dict.includes(q);
-    if (!ok) console.error(`${q} is not a valid day`);
+    if (!ok) console.warn(`${q} is not a valid day`);
     return ok;
   });
   const isValid = !!allGood.length;
