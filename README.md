@@ -1,9 +1,11 @@
+# Dool.js
+
 
 [![Edit intelligent-dew-g5dr3](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/intelligent-dew-g5dr3?fontsize=14&hidenavigation=1&theme=dark)
 
-# Dool.js
 
 Dool.js is a package based on <a href="https://github.com/iamkun/dayjs">dayjs</a> that allows you to generate the list of days between two dates.
+
 
 
 ## Why?
