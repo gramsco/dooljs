@@ -1,5 +1,3 @@
-import dayjs, { ConfigType, Dayjs } from "dayjs";
-
 const EVERY_DAY = "everyDay";
 const SINGLE_DAY = "oneDay";
 const LIST_DAYS = "listDays";
@@ -27,7 +25,9 @@ type QueryType =
   | typeof WRONG_QUERY;
 type CheckedQuery = [boolean, QueryType, DoolQuery];
 
-type CheckedDate = [boolean, Dayjs];
+type TimeQuery = "day" | "days" | "week" | "weeks";
+
+type CheckedDate = [boolean, Date];
 
 const dict: ListDays = [
   "sunday",
@@ -47,6 +47,7 @@ function checkAndParseArray(query: ListDays): CheckedQuery {
   }
   const allGood = query.filter((q) => {
     const ok = dict.includes(q);
+    // eslint-disable-next-line
     if (!ok) console.warn(`${q} is not a valid day`);
     return ok;
   });
@@ -75,27 +76,44 @@ function checkAndParse(query: DoolQuery): CheckedQuery {
   }
 }
 
-function checkDates(
-  first: ConfigType,
-  second: ConfigType
-): [CheckedDate, CheckedDate] {
-  let _first = dayjs(first);
-  let _second = dayjs(second);
+const asD = (d: Date) => new Date(d);
+const isValidDate = (d: Date) => d.toString() !== "Invalid Date";
+const add = (date: Date) => (n: number) => (what: TimeQuery) => {
+  switch (what) {
+    case "day":
+    case "days": {
+      const copy = new Date(date);
+      copy.setDate(date.getDate() + n);
+      return copy;
+    }
+    case "week":
+    case "weeks": {
+      const copy = new Date(date);
+      copy.setDate(date.getDate() + n);
+      return copy;
+    }
+    default: {
+      throw new Error("wrong");
+    }
+  }
+};
 
+function checkDates(first: Date, second: Date): [CheckedDate, CheckedDate] {
+  // eslint-disable-next-line
+  const _first = asD(first);
+  // eslint-disable-next-line
+  const _second = asD(second);
   return [
-    [_first.isValid(), _first],
-    [_second.isValid(), _second],
+    [isValidDate(_first), _first],
+    [isValidDate(_second), _second],
   ];
 }
 
-function dool(
-  firstDate: ConfigType,
-  secondDate: ConfigType,
-  query: DoolQuery = "day"
-): Date[] | [] {
+function dool(firstDate: Date, secondDate: Date, query: DoolQuery = "day") {
   const [validQuery, type, _query] = checkAndParse(query);
 
   if (!validQuery) {
+    // eslint-disable-next-line
     console.error(
       "You should provide a valid query : 'day', ['monday', 'thursday'], ..."
     );
@@ -108,32 +126,39 @@ function dool(
   ] = checkDates(firstDate, secondDate);
 
   if (!isValidFirstDate || !isValidSecondDate) {
+    // eslint-disable-next-line
     console.error("You should provide two valid dates");
     return [];
   }
 
-  if (_firstDate.isAfter(_secondDate)) {
+  if (_firstDate > _secondDate) {
+    // eslint-disable-next-line
     console.error("Second Date must not be before first Date !");
     return [];
   }
 
   let cursor = (() => {
-    let c = _firstDate.clone();
+    let c = new Date(_firstDate);
     switch (type) {
       case LIST_DAYS: {
+        // eslint-disable-next-line
         while (true) {
-          const d = dict[c.day()];
+          const d = dict[c.getDay()];
           if (_query.includes(d)) break;
-          c = c.add(1, "day");
+          c = add(c)(1)("day");
         }
         break;
       }
       case SINGLE_DAY: {
+        // eslint-disable-next-line
         while (true) {
-          const d = dict[c.day()];
+          const d = dict[c.getDay()];
           if (_query === d) break;
-          c = c.add(1, "day");
+          c = add(c)(1)("day");
         }
+        break;
+      }
+      default: {
         break;
       }
     }
@@ -141,27 +166,31 @@ function dool(
   })();
 
   const dates = (() => {
+    // eslint-disable-next-line
     let dates = [];
     switch (type) {
       case EVERY_DAY:
-        while (cursor.isBefore(_secondDate)) {
-          dates.push(cursor.toDate());
-          cursor = cursor.add(1, "day");
+        while (cursor < _secondDate) {
+          dates.push(cursor);
+          cursor = add(cursor)(1)("day");
         }
         break;
       case SINGLE_DAY:
-        while (cursor.isBefore(_secondDate)) {
-          dates.push(cursor.toDate());
-          cursor = cursor.add(7, "day");
+        while (cursor < _secondDate) {
+          dates.push(cursor);
+          cursor = add(cursor)(7)("day");
         }
         break;
       case LIST_DAYS:
-        while (cursor.isBefore(_secondDate)) {
-          const today = dict[cursor.day()];
-          if (query.includes(today)) dates.push(cursor.toDate());
-          cursor = cursor.add(1, "day");
+        while (cursor < _secondDate) {
+          const today = dict[cursor.getDay()];
+          if (query.includes(today)) dates.push(cursor);
+          cursor = add(cursor)(1)("day");
         }
         break;
+      default: {
+        throw new Error();
+      }
     }
     return dates;
   })();
