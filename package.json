@@ -1,6 +1,6 @@
 {
   "name": "dooljs",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "A package that generates a list of days between two dates",
   "source": "./src/index.ts",
   "main": "./dist/index.js",
@@ -8,7 +8,6 @@
   "module": "./dist/index.module.js",
   "unpkg": "./dist/index.umd.js",
   "types": "./src/index.d.ts",
-  "type": "module",
   "scripts": {
     "build": "microbundle",
     "dev": "microbundle watch",
