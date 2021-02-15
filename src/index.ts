@@ -159,7 +159,7 @@ function dool(firstDate: Date, secondDate: Date, query: DoolQuery = "day") {
         break;
       }
       default: {
-        console.log("tkt");
+        break;
       }
     }
     return c;

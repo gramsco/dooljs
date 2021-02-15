@@ -1,6 +1,6 @@
 {
   "name": "dooljs",
-  "version": "1.1",
+  "version": "1.1.1",
   "description": "A package that generates a list of days between two dates",
   "source": "./src/index.ts",
   "main": "./dist/index.js",
@@ -25,10 +25,9 @@
   },
   "author": "gramsco",
   "license": "ISC",
-  "dependencies": {
-    "dayjs": "^1.10.4"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "dayjs": "^1.10.4",
     "eslint": "^7.18.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
