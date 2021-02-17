@@ -170,19 +170,19 @@ function dool(firstDate: Date, secondDate: Date, query: DoolQuery = "day") {
     let dates = [];
     switch (type) {
       case EVERY_DAY:
-        while (cursor < _secondDate) {
+        while (cursor <= _secondDate) {
           dates.push(cursor);
           cursor = add(cursor)(1)("day");
         }
         break;
       case SINGLE_DAY:
-        while (cursor < _secondDate) {
+        while (cursor <= _secondDate) {
           dates.push(cursor);
           cursor = add(cursor)(7)("day");
         }
         break;
       case LIST_DAYS:
-        while (cursor < _secondDate) {
+        while (cursor <= _secondDate) {
           const today = dict[cursor.getDay()];
           if (query.includes(today)) dates.push(cursor);
           cursor = add(cursor)(1)("day");
