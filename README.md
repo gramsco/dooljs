@@ -21,7 +21,7 @@ ya know the drill:
 and then:
 
 ```javascript
-const dool = require("dooljs");
+const { dool } = require("dooljs");
 
 const day1 = "2013-04-08";
 const day2 = new Date(); // today, 2021-01-30
