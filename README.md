@@ -35,7 +35,7 @@ console.log(days.length);
 You can look for a specific day of the week :
 
 ```javascript
-const dool = require("dooljs");
+const { dool } = require("dooljs");
 
 const day1 = "1972-01-30";
 const day2 = new Date(); // today, 2021-01-30
@@ -59,7 +59,7 @@ console.log(sundays.length);
 You can also pass an array of week days:
 
 ```javascript
-const dool = require("dooljs");
+const { dool } = require("dooljs");
 
 const day1 = "1990-02-16";
 const day2 = new Date(); // today, 2021-01-30
