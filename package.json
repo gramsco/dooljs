@@ -1,6 +1,6 @@
 {
   "name": "dooljs",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A package that generates a list of days between two dates",
   "source": "./src/index.ts",
   "main": "./dist/index.umd.js",
@@ -47,7 +47,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm test"
+      "pre-commit": "lint-staged && npm run build && npm test"
     }
   },
   "lint-staged": {
