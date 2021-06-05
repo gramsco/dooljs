@@ -24,7 +24,6 @@ function dool(
 ) {
   const [validQuery, type, query] = checkAndParse(_query);
 
-  console.log({ validQuery, type, query });
   if (!validQuery) {
     // eslint-disable-next-line
     console.error(
