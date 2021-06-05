@@ -1,5 +1,15 @@
-import { DAY, DAYS, WEEK, WEEKS } from "./consts";
-import { TimeQuery, DateQuery, CheckedDate } from "./types";
+import {
+  DAY,
+  DAYS,
+  WEEK,
+  WEEKS,
+  TimeQuery,
+  DateQuery,
+  CheckedDate,
+} from "./consts";
+
+const asD = (d: DateQuery): Date => new Date(d);
+const isValidDate = (d: Date): boolean => d.toString() !== "Invalid Date";
 
 /**
  *
@@ -10,11 +20,11 @@ import { TimeQuery, DateQuery, CheckedDate } from "./types";
  */
 
 function checkDate(date: DateQuery): CheckedDate {
-  let asDate = asD(date);
+  const asDate = asD(date);
   return [isValidDate(asDate), asDate];
 }
 
-const add = (date: Date) => (n: number) => (what: TimeQuery) => {
+const add = (date: Date) => (n: number) => (what: TimeQuery): Date => {
   switch (what) {
     case DAY:
     case DAYS: {
@@ -34,7 +44,5 @@ const add = (date: Date) => (n: number) => (what: TimeQuery) => {
   }
 };
 
-const asD = (d: DateQuery) => new Date(d);
-const isValidDate = (d: Date) => d.toString() !== "Invalid Date";
-
+// eslint-disable-next-line object-curly-newline
 export { add, asD, isValidDate, checkDate };

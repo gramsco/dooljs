@@ -4,9 +4,11 @@ import {
   LIST_DAYS,
   SINGLE_DAY,
   DAY,
+  DateQuery,
+  ExtendedEnglishDay,
 } from "./consts";
+
 import { checkAndParse } from "./checkArray";
-import type { DoolQuery, DateQuery } from "./types";
 import { add, checkDate } from "./utils";
 
 /**
@@ -20,8 +22,8 @@ import { add, checkDate } from "./utils";
 function dool(
   firstDate: DateQuery,
   secondDate: DateQuery,
-  _query: DoolQuery = DAY
-) {
+  _query: ExtendedEnglishDay = DAY
+): Date[] | [] {
   const [validQuery, type, query] = checkAndParse(_query);
 
   if (!validQuery) {
@@ -36,11 +38,13 @@ function dool(
   const [isValidSecondDate, _secondDate] = checkDate(secondDate);
 
   if (!isValidFirstDate || !isValidSecondDate) {
+    // eslint-disable-next-line
     console.error("You should provide two valid dates");
     return [];
   }
 
   if (_firstDate > _secondDate) {
+    // eslint-disable-next-line
     console.error("Second Date must not be before first Date !");
     return [];
   }
@@ -50,6 +54,7 @@ function dool(
     let dateCopy = new Date(_firstDate);
     switch (type) {
       case LIST_DAYS: {
+        // eslint-disable-next-line
         while (true) {
           const d = dict[dateCopy.getDay()];
           if (query.includes(d)) break;
@@ -58,6 +63,7 @@ function dool(
         break;
       }
       case SINGLE_DAY: {
+        // eslint-disable-next-line
         while (true) {
           const d = dict[dateCopy.getDay()];
           if (query === d) break;
@@ -73,7 +79,8 @@ function dool(
   })();
 
   const dates = (() => {
-    let dates = [];
+    // eslint-disable-next-line no-shadow
+    const dates = [];
     switch (type) {
       case EVERY_DAY:
         while (cursor <= _secondDate) {
