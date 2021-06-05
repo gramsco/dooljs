@@ -1,16 +1,22 @@
 {
   "name": "dooljs",
-  "version": "1.2.4",
+  "version": "1.2.7",
   "description": "A package that generates a list of days between two dates",
   "source": "./src/index.ts",
-  "main": "./dist/index.js",
+  "main": "./dist/index.umd.js",
   "module": "./dist/index.module.js",
   "unpkg": "./dist/index.umd.js",
-  "types": "./src/index.d.ts",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "require": "./dist/index.js",
+    "default": "./dist/index.modern.js"
+  },
   "scripts": {
     "build": "microbundle",
     "dev": "microbundle watch",
-    "test": "microbundle && jest"
+    "test": "jest",
+    "build-test": "microbundle && jest",
+    "prov": "tsc ./playground/index && node ./playground/index"
   },
   "keywords": [
     "dates",

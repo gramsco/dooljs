@@ -1,5 +1,5 @@
 const dayjs = require("dayjs");
-const dool = require("../dist/index.umd.js");
+const { dool } = require("../dist");
 
 const weekDays = [
   "sunday",
@@ -59,16 +59,16 @@ test("All returned elements are valid JS dates", () => {
   expect(allDatesChecked).toBe(true);
 });
 
-test("A list of only a single day works", () => {
-  const q1 = ["monday"];
-  const q2 = "monday";
+test("Should works with duplicates", () => {
+  const q1 = ["monday", "monday", "thursday"];
+  const q2 = ["monday", "thursday"];
   const [r1, r2] = compare(q1)(q2);
   expect(r1).toEqual(r2);
 });
 
-test("Should works with duplicates", () => {
-  const q1 = ["monday", "monday", "thursday"];
-  const q2 = ["monday", "thursday"];
+test("A list of only a single day works", () => {
+  const q1 = ["monday"];
+  const q2 = "monday";
   const [r1, r2] = compare(q1)(q2);
   expect(r1).toEqual(r2);
 });

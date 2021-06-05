@@ -4,4 +4,4 @@ main.test.js
 .eslintrc.js
 playground
 tests
-src/index.ts
+src
